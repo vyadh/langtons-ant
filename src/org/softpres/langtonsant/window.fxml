@@ -17,7 +17,7 @@
       xmlns="http://javafx.com/javafx/8">
   <children>
     <Label text="Langton's Ant"/>
-    <Group fx:id="grid"/>
+    <Group fx:id="cells"/>
     <Button text="Start" onAction="#start"/>
   </children>
   <padding>
