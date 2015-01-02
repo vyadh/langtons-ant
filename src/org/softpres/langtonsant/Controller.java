@@ -10,24 +10,28 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.Random;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
+  private static final int ANTS = 1;
   private static final int FPS = 30;
 
   public Group cells;
   private Grid grid;
+  private List<Ant> ants;
   private Timeline timeline = new Timeline();
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     grid = new Grid(cells);
+    ants = IntStream.range(0, ANTS).mapToObj(i -> new Ant(grid)).collect(Collectors.toList());
   }
 
   public void start(ActionEvent actionEvent) {
@@ -38,9 +42,7 @@ public class Controller implements Initializable {
   }
 
   private void tick(ActionEvent event) {
-    // todo Currently just Random
-    Random r = new Random();
-    grid.cells().forEach(node -> node.setFill(Color.gray(r.nextDouble())));
+    ants.forEach(Ant::tick);
   }
 
 }
