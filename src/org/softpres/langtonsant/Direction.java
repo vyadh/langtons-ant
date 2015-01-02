@@ -44,4 +44,9 @@ public class Direction {
     return ys[i];
   }
 
+  @Override
+  public String toString() {
+    return xs[i] + "," + ys[i];
+  }
+
 }

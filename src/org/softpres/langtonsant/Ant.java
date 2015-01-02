@@ -17,6 +17,11 @@ public class Ant {
     this.grid = grid;
     direction = Direction.NORTH;
     x = y = grid.size() / 2;
+    occupy();
+  }
+
+  private void occupy() {
+    grid.cell(x, y).occupy();
   }
 
   public void tick() {
@@ -27,6 +32,7 @@ public class Ant {
     y += direction.velY();
 
     wrapScreenIfNecessary();
+    occupy();
   }
 
   private void wrapScreenIfNecessary() {

@@ -50,4 +50,8 @@ public class Cell extends Rectangle {
     return white;
   }
 
+  public void occupy() {
+    setFill(Color.RED);
+  }
+
 }
