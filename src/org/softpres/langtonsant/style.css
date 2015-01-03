@@ -5,3 +5,13 @@
 .label {
   -fx-text-fill: white;
 }
+
+.cell {
+  -fx-fill: white;
+}
+.cell:visited {
+  -fx-fill: teal;
+}
+.cell:occupied {
+  -fx-fill: red;
+}

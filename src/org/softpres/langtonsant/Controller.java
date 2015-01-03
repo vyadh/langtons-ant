@@ -8,6 +8,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.util.Duration;
@@ -23,7 +24,8 @@ public class Controller implements Initializable {
   private static final int ANTS = 1;
   private static final int FPS = 30;
 
-  public Group cells;
+  @FXML
+  private Group cells;
   private Grid grid;
   private List<Ant> ants;
   private Timeline timeline = new Timeline();

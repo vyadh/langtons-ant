@@ -12,9 +12,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+  private static final String fxml = "/org/softpres/langtonsant/window.fxml";
+
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("/org/softpres/langtonsant/window.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource(fxml));
+
     primaryStage.setTitle("Langton's Ant");
     primaryStage.setScene(new Scene(root, 560, 590));
     primaryStage.show();

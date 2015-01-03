@@ -26,7 +26,7 @@ public class Ant {
 
   public void tick() {
     Cell cell = grid.cell(x, y);
-    direction = cell.isWhite() ? direction.right() : direction.left();
+    direction = cell.isVisited() ? direction.right() : direction.left();
     cell.flip();
     x += direction.velX();
     y += direction.velY();
