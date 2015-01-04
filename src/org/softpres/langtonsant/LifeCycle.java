@@ -42,7 +42,7 @@ public class LifeCycle {
     int size = Math.max(1, tape.size() - 1);
     double inc = 1.0 / size;
     double change = inc * state;
-    return Color.BLACK.interpolate(Color.WHITE, change);
+    return Color.WHITE.interpolate(Color.BLACK, change);
   }
 
   public int next(int state) {

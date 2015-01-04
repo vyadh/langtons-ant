@@ -40,8 +40,12 @@ public class Controller implements Initializable {
   public void start(ActionEvent actionEvent) {
     timeline.stop();
     timeline.setCycleCount(Animation.INDEFINITE);
-    timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000 / FPS), this::tick));
+    timeline.getKeyFrames().add(new KeyFrame(durationForFPS(), this::tick));
     timeline.play();
+  }
+
+  private Duration durationForFPS() {
+    return Duration.millis(1000 / Math.min(1000, FPS));
   }
 
   private void tick(ActionEvent event) {
