@@ -3,6 +3,8 @@
  */
 package org.softpres.langtonsant;
 
+import javafx.scene.paint.Color;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -32,8 +34,15 @@ public class LifeCycle {
     this.tape = tape;
   }
 
-  public Direction next(int state, Direction direction) {
+  public Direction direction(int state, Direction direction) {
     return tape.get(state).apply(direction);
+  }
+
+  public Color colour(int state) {
+    int size = Math.max(1, tape.size() - 1);
+    double inc = 1.0 / size;
+    double change = inc * state;
+    return Color.BLACK.interpolate(Color.WHITE, change);
   }
 
   public int next(int state) {

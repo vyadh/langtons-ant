@@ -6,11 +6,9 @@
   -fx-text-fill: white;
 }
 
-.cell.state-0 { -fx-fill: rgb(100%,100%,100%); }
-.cell.state-1 { -fx-fill: rgb( 80%, 80%, 80%); }
-.cell.state-2 { -fx-fill: rgb( 60%, 60%, 60%); }
-.cell.state-3 { -fx-fill: rgb( 40%, 40%, 40%); }
-
+.cell.unvisited {
+  -fx-fill: white;
+}
 .cell.occupied {
   -fx-fill: red;
 }

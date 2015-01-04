@@ -30,8 +30,8 @@ public class Ant {
     Cell cell = grid.cell(x, y);
     int state = cell.state();
 
-    direction = lifeCycle.next(state, direction);
-    cell.transition(lifeCycle.next(state));
+    direction = lifeCycle.direction(state, direction);
+    cell.transition(lifeCycle.colour(state), lifeCycle.next(state));
 
     x += direction.velX();
     y += direction.velY();

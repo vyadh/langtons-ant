@@ -23,7 +23,7 @@ public class Controller implements Initializable {
 
   private static final int ANTS = 1;
   private static final int FPS = 30;
-  private static final LifeCycle lifeCycle = LifeCycle.LANGTON;
+  private static final LifeCycle lifeCycle = LifeCycle.of("LR");
 
   @FXML
   private Group cells;

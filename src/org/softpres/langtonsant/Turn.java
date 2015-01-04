@@ -8,26 +8,12 @@ import java.util.function.Function;
 /**
  * Represents a change in direction.
  */
-public enum Turn implements Function<Direction, Direction> {
+public class Turn {
 
-  LEFT(Direction::turnLeft),
-  RIGHT(Direction::turnRight);
-
-  private final Function<Direction, Direction> turn;
-
-  Turn(Function<Direction, Direction> turn) {
-    this.turn = turn;
-  }
-
-  @Override
-  public Direction apply(Direction direction) {
-    return turn.apply(direction);
-  }
-
-  public static Turn of(char c) {
+  public static Function<Direction, Direction> of(char c) {
     switch (c) {
-      case 'L': return LEFT;
-      case 'R': return RIGHT;
+      case 'L': return Direction::turnLeft;
+      case 'R': return Direction::turnRight;
       default: throw new IllegalArgumentException("Unsupported turn: " + c);
     }
   }

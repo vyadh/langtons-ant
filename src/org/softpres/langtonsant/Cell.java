@@ -4,6 +4,7 @@
 
 package org.softpres.langtonsant;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -21,12 +22,11 @@ public class Cell extends Rectangle {
     super(x + (x * CELL_SIZE), y, CELL_SIZE, CELL_SIZE);
     this.x = x;
     this.y = y;
-    getStyleClass().add("cell");
+    getStyleClass().addAll("cell", "unvisited");
     setWidth(CELL_SIZE);
     setHeight(CELL_SIZE);
     setX(x + (x * CELL_SIZE));
     setY(y + (y * CELL_SIZE));
-    update();
   }
 
   public int x() {
@@ -37,13 +37,14 @@ public class Cell extends Rectangle {
     return y;
   }
 
-  private void update() {
-    getStyleClass().setAll("cell", "state-" + state);
+  private void update(Color colour) {
+    getStyleClass().clear();
+    setFill(colour);
   }
 
-  public void transition(int state) {
+  public void transition(Color colour, int state) {
     this.state = state;
-    update();
+    update(colour);
   }
 
   public int state() {
