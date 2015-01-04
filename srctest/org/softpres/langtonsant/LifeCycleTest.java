@@ -34,4 +34,15 @@ public class LifeCycleTest {
     assertThat(lifeCycle.next(1, north)).isEqualTo(east);
   }
 
+
+  @Test
+  public void createLifeCycleFromString() {
+    LifeCycle lc = LifeCycle.of("RLLR");
+
+    assertThat(lc.next(0, north)).isEqualTo(east);
+    assertThat(lc.next(1, north)).isEqualTo(west);
+    assertThat(lc.next(2, north)).isEqualTo(west);
+    assertThat(lc.next(3, north)).isEqualTo(east);
+  }
+
 }
