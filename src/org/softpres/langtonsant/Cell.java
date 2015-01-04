@@ -4,7 +4,6 @@
 
 package org.softpres.langtonsant;
 
-import javafx.css.PseudoClass;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -14,12 +13,9 @@ public class Cell extends Rectangle {
 
   private static final int CELL_SIZE = 4;
 
-  private static final PseudoClass PSEUDO_CLASS_VISITED = PseudoClass.getPseudoClass("visited");
-  private static final PseudoClass PSEUDO_CLASS_OCCUPIED = PseudoClass.getPseudoClass("occupied");
-
   private final int x;
   private final int y;
-  private boolean visited = false;
+  private int state;
 
   public Cell(int x, int y) {
     super(x + (x * CELL_SIZE), y, CELL_SIZE, CELL_SIZE);
@@ -30,8 +26,6 @@ public class Cell extends Rectangle {
     setHeight(CELL_SIZE);
     setX(x + (x * CELL_SIZE));
     setY(y + (y * CELL_SIZE));
-    pseudoClassStateChanged(PSEUDO_CLASS_OCCUPIED, false);
-    pseudoClassStateChanged(PSEUDO_CLASS_VISITED, false);
     update();
   }
 
@@ -43,22 +37,21 @@ public class Cell extends Rectangle {
     return y;
   }
 
-  public void update() {
-    pseudoClassStateChanged(PSEUDO_CLASS_VISITED, visited);
+  private void update() {
+    getStyleClass().setAll("cell", "state-" + state);
   }
 
-  public void flip() {
-    visited = !visited;
-    pseudoClassStateChanged(PSEUDO_CLASS_OCCUPIED, false);
+  public void transition(int state) {
+    this.state = state;
     update();
   }
 
-  public boolean isVisited() {
-    return visited;
+  public int state() {
+    return state;
   }
 
   public void occupy() {
-    pseudoClassStateChanged(PSEUDO_CLASS_OCCUPIED, true);
+    getStyleClass().setAll("cell", "occupied");
   }
 
 }

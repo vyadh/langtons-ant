@@ -21,6 +21,7 @@ public class Direction {
   // East, South, West, North
   private static final int[] xs = new int[] { 1, 0,-1, 0 };
   private static final int[] ys = new int[] { 0, 1, 0,-1 };
+  private static final int directions = xs.length;
 
   private final int i;
 
@@ -28,12 +29,12 @@ public class Direction {
     this.i = i;
   }
 
-  public Direction left() {
-    return dirs.get((i + dirs.size() - 1) % 4);
+  public Direction turnLeft() {
+    return dirs.get((i + dirs.size() - 1) % directions);
   }
 
-  public Direction right() {
-    return dirs.get((i + 1) % 4);
+  public Direction turnRight() {
+    return dirs.get((i + 1) % directions);
   }
 
   public int velX() {

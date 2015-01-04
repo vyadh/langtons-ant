@@ -9,12 +9,14 @@ package org.softpres.langtonsant;
 public class Ant {
 
   private final Grid grid;
+  private LifeCycle lifeCycle;
   private Direction direction;
   private int x;
   private int y;
 
-  public Ant(Grid grid) {
+  public Ant(Grid grid, LifeCycle lifeCycle) {
     this.grid = grid;
+    this.lifeCycle = lifeCycle;
     direction = Direction.NORTH;
     x = y = grid.size() / 2;
     occupy();
@@ -26,8 +28,11 @@ public class Ant {
 
   public void tick() {
     Cell cell = grid.cell(x, y);
-    direction = cell.isVisited() ? direction.right() : direction.left();
-    cell.flip();
+    int state = cell.state();
+
+    direction = lifeCycle.next(state, direction);
+    cell.transition(lifeCycle.next(state));
+
     x += direction.velX();
     y += direction.velY();
 

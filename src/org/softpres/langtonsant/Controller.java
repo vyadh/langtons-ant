@@ -23,6 +23,7 @@ public class Controller implements Initializable {
 
   private static final int ANTS = 1;
   private static final int FPS = 30;
+  private static final LifeCycle lifeCycle = LifeCycle.LANGTON;
 
   @FXML
   private Group cells;
@@ -33,7 +34,7 @@ public class Controller implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     grid = new Grid(cells);
-    ants = IntStream.range(0, ANTS).mapToObj(i -> new Ant(grid)).collect(Collectors.toList());
+    ants = IntStream.range(0, ANTS).mapToObj(i -> new Ant(grid, lifeCycle)).collect(Collectors.toList());
   }
 
   public void start(ActionEvent actionEvent) {

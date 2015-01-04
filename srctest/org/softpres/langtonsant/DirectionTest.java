@@ -11,20 +11,20 @@ public class DirectionTest {
 
   @Test
   public void rotateRight() {
-    Direction east = Direction.NORTH.right();
-    Direction south = east.right();
-    Direction west = south.right();
-    Direction north = west.right();
+    Direction east = Direction.NORTH.turnRight();
+    Direction south = east.turnRight();
+    Direction west = south.turnRight();
+    Direction north = west.turnRight();
 
     assertDirections(east, south, west, north);
   }
 
   @Test
   public void rotateLeft() {
-    Direction west = Direction.NORTH.left();
-    Direction south = west.left();
-    Direction east = south.left();
-    Direction north = east.left();
+    Direction west = Direction.NORTH.turnLeft();
+    Direction south = west.turnLeft();
+    Direction east = south.turnLeft();
+    Direction north = east.turnLeft();
 
     assertDirections(east, south, west, north);
   }

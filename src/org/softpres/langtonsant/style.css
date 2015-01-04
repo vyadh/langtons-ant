@@ -6,12 +6,12 @@
   -fx-text-fill: white;
 }
 
-.cell {
+.cell.state-0 {
   -fx-fill: white;
 }
-.cell:visited {
+.cell.state-1 {
   -fx-fill: teal;
 }
-.cell:occupied {
+.cell.occupied {
   -fx-fill: red;
 }
