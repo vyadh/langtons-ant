@@ -7,10 +7,12 @@ package org.softpres.langtonsant;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
@@ -24,13 +26,15 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
   @FXML
+  private Group cells;
+  @FXML
   private TextField antCount;
   @FXML
   private TextField pattern;
   @FXML
   private Slider fps;
   @FXML
-  private Group cells;
+  private Button start;
 
   private Grid grid;
   private List<Ant> ants;
@@ -39,6 +43,15 @@ public class Controller implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     grid = new Grid(cells);
+    enableStartOnlyWhenValidInput();
+  }
+
+  private void enableStartOnlyWhenValidInput() {
+    // JavaFX needs built-in support for regular expressions here :)
+    start.disableProperty().bind(Bindings.or(
+          antCount.textProperty().isEmpty(),
+          pattern.textProperty().isEmpty()
+    ));
   }
 
   public void restart() {
@@ -47,6 +60,7 @@ public class Controller implements Initializable {
     LifeCycle lifeCycle = createLifecycle();
     ants = createAnts(lifeCycle);
     timeline = createTimeline();
+
     timeline.play();
   }
 
