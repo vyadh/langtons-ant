@@ -24,18 +24,13 @@
             <Insets left="5.0"/>
           </HBox.margin>
         </TextField>
-        <Button fx:id="start" onAction="#restart" text="Start">
+        <Button fx:id="startStop" onAction="#startStop" text="Start">
           <HBox.margin>
-            <Insets left="10.0"/>
-          </HBox.margin>
-        </Button>
-        <Button onAction="#stop" text="Stop">
-          <HBox.margin>
-            <Insets left="5.0" right="10.0"/>
+            <Insets left="10" right="10"/>
           </HBox.margin>
         </Button>
         <Label text="FPS"/>
-        <Slider fx:id="fps" max="1000" min="1" onMouseDragReleased="#restart" value="30.0"/>
+        <Slider fx:id="fps" max="1000" min="1" value="30.0"/>
       </children>
     </HBox>
   </children>

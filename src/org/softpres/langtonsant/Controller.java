@@ -34,7 +34,7 @@ public class Controller implements Initializable {
   @FXML
   private Slider fps;
   @FXML
-  private Button start;
+  private Button startStop;
 
   private Grid grid;
   private List<Ant> ants;
@@ -48,20 +48,23 @@ public class Controller implements Initializable {
 
   private void enableStartOnlyWhenValidInput() {
     // JavaFX needs built-in support for regular expressions here :)
-    start.disableProperty().bind(Bindings.or(
+    startStop.disableProperty().bind(Bindings.or(
           antCount.textProperty().isEmpty(),
           pattern.textProperty().isEmpty()
     ));
   }
 
-  public void restart() {
-    stop();
-
-    LifeCycle lifeCycle = createLifecycle();
-    ants = createAnts(lifeCycle);
-    timeline = createTimeline();
-
-    timeline.play();
+  public void startStop() {
+    if (startStop.getText().equals("Start")) {
+      startStop.setText("Stop");
+      LifeCycle lifeCycle = createLifecycle();
+      ants = createAnts(lifeCycle);
+      timeline = createTimeline();
+      timeline.play();
+    } else {
+      startStop.setText("Start");
+      timeline.stop();
+    }
   }
 
   private List<Ant> createAnts(LifeCycle lifeCycle) {
@@ -81,13 +84,8 @@ public class Controller implements Initializable {
     result.setCycleCount(Animation.INDEFINITE);
     result.getKeyFrames().add(new KeyFrame(Duration.seconds(1), this::tick));
     result.rateProperty().bind(fps.valueProperty());
+    result.setOnFinished((event) -> startStop.setText("Start"));
     return result;
-  }
-
-  public void stop() {
-    if (timeline != null) {
-      timeline.stop();
-    }
   }
 
   private void tick(ActionEvent event) {
