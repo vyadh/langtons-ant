@@ -8,7 +8,5 @@ Features
 --------
 
 Multiple ants
-Multiple colours
+Multiple colours (levels of grey)
 Arbitrary turn strategies (such as LLRR or RRLLLRLLLRRR)
-
-Customisation not yet supported from UI.

@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -22,13 +23,15 @@ import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
-  private static final int ANTS = 1;
-  private static final LifeCycle lifeCycle = LifeCycle.of("LR");
-
+  @FXML
+  private TextField antCount;
+  @FXML
+  private TextField pattern;
   @FXML
   private Slider fps;
   @FXML
   private Group cells;
+
   private Grid grid;
   private List<Ant> ants;
   private Timeline timeline;
@@ -36,19 +39,38 @@ public class Controller implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     grid = new Grid(cells);
-    ants = IntStream.range(0, ANTS).mapToObj(i -> new Ant(grid, lifeCycle)).collect(Collectors.toList());
   }
 
-  public void restart(ActionEvent actionEvent) {
-    stop(actionEvent);
-    timeline = new Timeline();
-    timeline.setCycleCount(Animation.INDEFINITE);
-    timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), this::tick));
-    timeline.rateProperty().bind(fps.valueProperty());
+  public void restart() {
+    stop();
+
+    LifeCycle lifeCycle = createLifecycle();
+    ants = createAnts(lifeCycle);
+    timeline = createTimeline();
     timeline.play();
   }
 
-  public void stop(ActionEvent actionEvent) {
+  private List<Ant> createAnts(LifeCycle lifeCycle) {
+    int ants = Integer.valueOf(antCount.getText());
+
+    return IntStream.range(0, ants)
+          .mapToObj(i -> new Ant(grid, lifeCycle))
+          .collect(Collectors.toList());
+  }
+
+  private LifeCycle createLifecycle() {
+    return LifeCycle.of(pattern.getText());
+  }
+
+  private Timeline createTimeline() {
+    Timeline result = new Timeline();
+    result.setCycleCount(Animation.INDEFINITE);
+    result.getKeyFrames().add(new KeyFrame(Duration.seconds(1), this::tick));
+    result.rateProperty().bind(fps.valueProperty());
+    return result;
+  }
+
+  public void stop() {
     if (timeline != null) {
       timeline.stop();
     }
