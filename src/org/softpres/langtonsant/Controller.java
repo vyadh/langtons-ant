@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Slider;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -22,14 +23,15 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
   private static final int ANTS = 1;
-  private static final int FPS = 30;
   private static final LifeCycle lifeCycle = LifeCycle.of("LR");
 
+  @FXML
+  private Slider fps;
   @FXML
   private Group cells;
   private Grid grid;
   private List<Ant> ants;
-  private Timeline timeline = new Timeline();
+  private Timeline timeline;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,15 +39,19 @@ public class Controller implements Initializable {
     ants = IntStream.range(0, ANTS).mapToObj(i -> new Ant(grid, lifeCycle)).collect(Collectors.toList());
   }
 
-  public void start(ActionEvent actionEvent) {
-    timeline.stop();
+  public void restart(ActionEvent actionEvent) {
+    stop(actionEvent);
+    timeline = new Timeline();
     timeline.setCycleCount(Animation.INDEFINITE);
-    timeline.getKeyFrames().add(new KeyFrame(durationForFPS(), this::tick));
+    timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), this::tick));
+    timeline.rateProperty().bind(fps.valueProperty());
     timeline.play();
   }
 
-  private Duration durationForFPS() {
-    return Duration.millis(1000 / Math.min(1000, FPS));
+  public void stop(ActionEvent actionEvent) {
+    if (timeline != null) {
+      timeline.stop();
+    }
   }
 
   private void tick(ActionEvent event) {
