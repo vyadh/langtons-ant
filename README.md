@@ -10,3 +10,8 @@ Features
 Multiple ants
 Multiple colours (levels of grey)
 Arbitrary turn strategies (such as LLRR or RRLLLRLLLRRR)
+
+Screenshot
+----------
+
+![Screenshot with repeated Langton's Ant pattern](.github/screenshot.png?raw=true "Example")
