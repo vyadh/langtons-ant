@@ -92,4 +92,8 @@ public class Controller implements Initializable {
     ants.forEach(Ant::tick);
   }
 
+  public void reset() {
+    grid.reset();
+  }
+
 }

@@ -22,11 +22,11 @@ public class Cell extends Rectangle {
     super(x + (x * CELL_SIZE), y, CELL_SIZE, CELL_SIZE);
     this.x = x;
     this.y = y;
-    getStyleClass().addAll("cell", "unvisited");
     setWidth(CELL_SIZE);
     setHeight(CELL_SIZE);
     setX(x + (x * CELL_SIZE));
     setY(y + (y * CELL_SIZE));
+    reset();
   }
 
   public int x() {
@@ -53,6 +53,11 @@ public class Cell extends Rectangle {
 
   public void occupy() {
     getStyleClass().setAll("cell", "occupied");
+  }
+
+  public void reset() {
+    state = 0;
+    getStyleClass().setAll("cell", "unvisited");
   }
 
 }

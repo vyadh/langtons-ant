@@ -45,4 +45,8 @@ public class Grid {
     return grid[x][y];
   }
 
+  public void reset() {
+    cells().forEach(Cell::reset);
+  }
+
 }
