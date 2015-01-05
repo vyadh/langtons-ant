@@ -43,7 +43,7 @@ public class Controller implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    grid = new Grid(cells);
+    grid = new Grid(cells, transforms);
     enableStartOnlyWhenValidInput();
   }
 

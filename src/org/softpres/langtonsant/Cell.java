@@ -60,4 +60,21 @@ public class Cell extends Rectangle {
     getStyleClass().setAll("cell", "unvisited");
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Cell cell = (Cell) o;
+    return state == cell.state && x == cell.x && y == cell.y;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = x;
+    result = 31 * result + y;
+    result = 31 * result + state;
+    return result;
+  }
+
 }

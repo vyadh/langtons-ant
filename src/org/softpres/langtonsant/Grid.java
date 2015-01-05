@@ -7,7 +7,6 @@ import javafx.scene.Group;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -17,20 +16,13 @@ import static java.util.stream.Collectors.toList;
  */
 public class Grid {
 
-  private static final int SIZE = 100;
-  private Cell[][] grid = new Cell[SIZE][SIZE];
+  private static final int DIMENSION = 100;
+  private Cell[][] grid = new Cell[DIMENSION][DIMENSION];
 
-  public Grid(Group group) {
-    List<Cell> cells = createCells().collect(toList());
+  public Grid(Group group, Transforms transforms) {
+    List<Cell> cells = transforms.createCells(DIMENSION).collect(toList());
     cells.forEach(cell -> grid[cell.x()][cell.y()] = cell);
     group.getChildren().addAll(cells);
-  }
-
-  private Stream<Cell> createCells() {
-    // I'm forcing myself to use a stream here, but without for combinations or a zip method
-    // it's not very nice, and the imperative for loop would probably have been nicer
-    return IntStream.range(0, SIZE).boxed().flatMap(
-          x -> IntStream.range(0, SIZE).mapToObj(y -> new Cell(x, y)));
   }
 
   public Stream<Cell> cells() {
@@ -38,7 +30,7 @@ public class Grid {
   }
 
   public int size() {
-    return SIZE;
+    return DIMENSION;
   }
 
   public Cell cell(int x, int y) {
