@@ -7,9 +7,10 @@ Langton's Ant.
 Features
 --------
 
-Multiple ants
-Multiple colours (levels of grey)
-Arbitrary turn strategies (such as LLRR or RRLLLRLLLRRR)
+* Multiple ants
+* Multiple colours (levels of grey)
+* Heat-map style shading (by repeating patterns, see example below)
+* Arbitrary turn strategies (such as LLRR or RRLLLRLLLRRR)
 
 Screenshot
 ----------
