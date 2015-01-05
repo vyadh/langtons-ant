@@ -20,10 +20,11 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
+
+  /** Default implementation of the transformations required to run the simulation. */
+  private final Transforms transforms = new DefaultTransforms();
 
   @FXML
   private Group cells;
@@ -69,10 +70,7 @@ public class Controller implements Initializable {
 
   private List<Ant> createAnts(LifeCycle lifeCycle) {
     int ants = Integer.valueOf(antCount.getText());
-
-    return IntStream.range(0, ants)
-          .mapToObj(i -> new Ant(grid, lifeCycle))
-          .collect(Collectors.toList());
+    return transforms.createAnts(ants, () -> new Ant(grid, lifeCycle));
   }
 
   private LifeCycle createLifecycle() {
@@ -84,7 +82,7 @@ public class Controller implements Initializable {
     result.setCycleCount(Animation.INDEFINITE);
     result.getKeyFrames().add(new KeyFrame(Duration.seconds(1), this::tick));
     result.rateProperty().bind(fps.valueProperty());
-    result.setOnFinished((event) -> startStop.setText("Start"));
+    result.setOnFinished(event -> startStop.setText("Start"));
     return result;
   }
 
