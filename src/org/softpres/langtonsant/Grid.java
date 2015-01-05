@@ -5,9 +5,7 @@ package org.softpres.langtonsant;
 
 import javafx.scene.Group;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -17,16 +15,14 @@ import static java.util.stream.Collectors.toList;
 public class Grid {
 
   private static final int DIMENSION = 100;
+  private final Transforms transforms;
   private Cell[][] grid = new Cell[DIMENSION][DIMENSION];
 
   public Grid(Group group, Transforms transforms) {
+    this.transforms = transforms;
     List<Cell> cells = transforms.createCells(DIMENSION).collect(toList());
     cells.forEach(cell -> grid[cell.x()][cell.y()] = cell);
     group.getChildren().addAll(cells);
-  }
-
-  public Stream<Cell> cells() {
-    return Stream.of(grid).flatMap(Arrays::stream);
   }
 
   public int size() {
@@ -38,7 +34,7 @@ public class Grid {
   }
 
   public void reset() {
-    cells().forEach(Cell::reset);
+    transforms.cells(grid).forEach(Cell::reset);
   }
 
 }

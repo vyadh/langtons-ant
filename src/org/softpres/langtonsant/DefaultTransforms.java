@@ -3,6 +3,7 @@
  */
 package org.softpres.langtonsant;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -25,6 +26,11 @@ public class DefaultTransforms implements Transforms {
     // it's not very nice, and the imperative for loop would probably have been nicer
     return IntStream.range(0, dimension).boxed().flatMap(
           x -> IntStream.range(0, dimension).mapToObj(y -> new Cell(x, y)));
+  }
+
+  @Override
+  public Stream<Cell> cells(Cell[][] grid) {
+    return Stream.of(grid).flatMap(Arrays::stream);
   }
 
 }

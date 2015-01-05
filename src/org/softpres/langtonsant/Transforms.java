@@ -27,4 +27,9 @@ public interface Transforms {
    */
   Stream<Cell> createCells(int dimension);
 
+  /**
+   * Convert the supplied grid into a stream of cells in any order.
+   */
+  Stream<Cell> cells(Cell[][] grid);
+
 }
