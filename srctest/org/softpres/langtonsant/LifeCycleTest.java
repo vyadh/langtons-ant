@@ -40,18 +40,18 @@ public class LifeCycleTest {
   public void shadeForLangtonIsBetweenWhiteAndBlack() {
     LifeCycle lc = LifeCycle.of("LR");
 
-    assertThat(lc.colour(0)).isEqualTo(Color.gray(0.0));
-    assertThat(lc.colour(1)).isEqualTo(Color.gray(1.0));
+    assertThat(lc.colour(0)).isEqualTo(Color.gray(1.0));
+    assertThat(lc.colour(1)).isEqualTo(Color.gray(0.0));
   }
 
   @Test
   public void shadeIsProportionalToLength() {
     LifeCycle lc = LifeCycle.of("LRLR");
 
-    assertThat(lc.colour(0).getBrightness()).isCloseTo(Color.gray(0.0 ).getBrightness(), Offset.offset(0.01));
-    assertThat(lc.colour(1).getBrightness()).isCloseTo(Color.gray(0.33).getBrightness(), Offset.offset(0.01));
-    assertThat(lc.colour(2).getBrightness()).isCloseTo(Color.gray(0.66).getBrightness(), Offset.offset(0.01));
-    assertThat(lc.colour(3).getBrightness()).isCloseTo(Color.gray(1.0 ).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(0).getBrightness()).isCloseTo(Color.gray(1.0 ).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(1).getBrightness()).isCloseTo(Color.gray(0.66).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(2).getBrightness()).isCloseTo(Color.gray(0.33).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(3).getBrightness()).isCloseTo(Color.gray(0.0 ).getBrightness(), Offset.offset(0.01));
   }
 
   @Test
