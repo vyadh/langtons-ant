@@ -15,6 +15,14 @@ Features
 * Heat-map style shading (by repeating patterns, see example below)
 * Arbitrary turn strategies (such as LLRR or RRLLLRLLLRRR)
 
+Examples
+--------
+
+Once you are done with the examples on Wikipedia, here are some other nice
+ones to try. Some of these take a while to work, so set the FPS setting to max.
+
+ * LRLRLLRLRLRLRLRLRLRLLRLRLRLRLRLRLRLLRLRLRLRLRLRLRLLRLRLRLRLRLRLRLLRLRLRLRLRLRLRLLRLRLRLRLR
+
 Screenshot
 ----------
 

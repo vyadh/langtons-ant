@@ -5,6 +5,7 @@ package org.softpres.langtonsant;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -48,10 +49,25 @@ public class Transforms {
    * cell in state number 0.
    */
   public LifeCycle createLifeCycle(String tape) {
+    // Scala:
+    // new LifeCycle(tape.map(_ match {
+    //   case 'L' => (d: Direction) => d.turnLeft
+    //   case 'R' => (d: Direction) => d.turnRight
+    // })
+
     return new LifeCycle(tape.chars()
-          .mapToObj(c -> Turn.of((char)c))
+          .mapToObj(c -> (char)c)
+          .map(this::turn)
           .collect(Collectors.toList())
     );
+  }
+
+  private Function<Direction, Direction> turn(char c) {
+    switch (c) {
+      case 'L': return Direction::turnLeft;
+      case 'R': return Direction::turnRight;
+      default: throw new IllegalArgumentException("Unsupported turn: " + c);
+    }
   }
 
   /**
