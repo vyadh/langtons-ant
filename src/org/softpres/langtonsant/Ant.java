@@ -17,7 +17,12 @@ public class Ant {
   public Ant(Grid grid, LifeCycle lifeCycle) {
     this.grid = grid;
     this.lifeCycle = lifeCycle;
+
     direction = Direction.NORTH;
+    placeInCentre(grid);
+  }
+
+  private void placeInCentre(Grid grid) {
     x = y = grid.size() / 2;
     occupy();
   }
@@ -28,16 +33,27 @@ public class Ant {
 
   public void tick() {
     Cell cell = grid.cell(x, y);
+
+    makeNextTurn(cell);
+    transitionCell(cell);
+    updatePosition();
+    occupy();
+  }
+
+  private void makeNextTurn(Cell cell) {
+    direction = lifeCycle.direction(cell.state(), direction);
+  }
+
+  private void transitionCell(Cell cell) {
     int state = cell.state();
-
-    direction = lifeCycle.direction(state, direction);
     cell.transition(lifeCycle.colour(state), lifeCycle.next(state));
+  }
 
+  private void updatePosition() {
     x += direction.velX();
     y += direction.velY();
 
     wrapScreenIfNecessary();
-    occupy();
   }
 
   private void wrapScreenIfNecessary() {

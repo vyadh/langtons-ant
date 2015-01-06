@@ -23,6 +23,7 @@ public class Transforms {
 
   /**
    * Create and return 'count' ant objects, using the supplied factory.
+   * This is used to create the number of simulated ants specified by the user.
    */
   public List<Ant> createAnts(int count, Supplier<Ant> factory) {
     return Stream.generate(factory).limit(count).collect(Collectors.toList());
@@ -40,7 +41,23 @@ public class Transforms {
   }
 
   /**
+   * A "tape" of ant turn instructions specified by the user is used to create
+   * a lifecycle that instructs an ant on what to do next based on the state of
+   * the cell it is sitting. For example, given a tape of "LR" an ant would turn
+   * left if it is sitting on a fresh cell (state number 0), or right if on a
+   * cell in state number 0.
+   */
+  public LifeCycle createLifeCycle(String tape) {
+    return new LifeCycle(tape.chars()
+          .mapToObj(c -> Turn.of((char)c))
+          .collect(Collectors.toList())
+    );
+  }
+
+  /**
    * Convert the supplied grid into a stream of cells in any order.
+   * This is provided for when we need to iterate over all cells, currently
+   * this is just when the reset button is pressed to reset cell state.
    */
   public Stream<Cell> cells(Cell[][] grid) {
     return Stream.of(grid).flatMap(Arrays::stream);

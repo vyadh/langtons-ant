@@ -3,6 +3,8 @@
  */
 package org.softpres.langtonsant;
 
+import javafx.scene.paint.Color;
+import org.assertj.core.data.Offset;
 import org.junit.Test;
 
 import java.util.*;
@@ -11,6 +13,7 @@ import java.util.function.Supplier;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.softpres.langtonsant.Direction.NORTH;
 
 /**
  * Tests a provided implementation of {@link Transforms}.
@@ -41,6 +44,47 @@ public class TransformsTest {
     Set<Cell> actual = transforms.createCells(3).collect(toSet());
 
     assertThat(actual).containsOnly(expected);
+  }
+
+  @Test
+  public void createLifeCycleFromSpecifiedLangtonTape() {
+    LifeCycle lifeCycle = transforms.createLifeCycle("LR");
+
+    assertThat(lifeCycle.direction(0, NORTH)).isEqualTo(NORTH.turnLeft());
+    assertThat(lifeCycle.direction(1, NORTH)).isEqualTo(NORTH.turnRight());
+  }
+
+  @Test
+  public void createLifeCycleFromSpecifiedArbitaryTape() {
+    LifeCycle lifeCycle = transforms.createLifeCycle("RLLR");
+
+    assertThat(lifeCycle.direction(0, NORTH)).isEqualTo(NORTH.turnRight());
+    assertThat(lifeCycle.direction(1, NORTH)).isEqualTo(NORTH.turnLeft());
+    assertThat(lifeCycle.direction(2, NORTH)).isEqualTo(NORTH.turnLeft());
+    assertThat(lifeCycle.direction(3, NORTH)).isEqualTo(NORTH.turnRight());
+  }
+
+  @Test (expected = IndexOutOfBoundsException.class)
+  public void createdLifeCycleShouldBeOfAppropriateSize() {
+    transforms.createLifeCycle("LRLRLR").direction(6, NORTH);
+  }
+
+  @Test
+  public void shadeForLangtonIsBetweenWhiteAndBlack() {
+    LifeCycle lc = transforms.createLifeCycle("LR");
+
+    assertThat(lc.colour(0)).isEqualTo(Color.gray(1.0));
+    assertThat(lc.colour(1)).isEqualTo(Color.gray(0.0));
+  }
+
+  @Test
+  public void shadeIsProportionalToLength() {
+    LifeCycle lc = transforms.createLifeCycle("LRLR");
+
+    assertThat(lc.colour(0).getBrightness()).isCloseTo(Color.gray(1.0).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(1).getBrightness()).isCloseTo(Color.gray(0.66).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(2).getBrightness()).isCloseTo(Color.gray(0.33).getBrightness(), Offset.offset(0.01));
+    assertThat(lc.colour(3).getBrightness()).isCloseTo(Color.gray(0.0).getBrightness(), Offset.offset(0.01));
   }
 
   @Test

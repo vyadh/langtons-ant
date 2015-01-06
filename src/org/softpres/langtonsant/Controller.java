@@ -58,8 +58,7 @@ public class Controller implements Initializable {
   public void startStop() {
     if (startStop.getText().equals("Start")) {
       startStop.setText("Stop");
-      LifeCycle lifeCycle = createLifecycle();
-      ants = createAnts(lifeCycle);
+      ants = createAnts();
       timeline = createTimeline();
       timeline.play();
     } else {
@@ -68,13 +67,14 @@ public class Controller implements Initializable {
     }
   }
 
-  private List<Ant> createAnts(LifeCycle lifeCycle) {
+  private List<Ant> createAnts() {
     int ants = Integer.valueOf(antCount.getText());
+    LifeCycle lifeCycle = createLifecycle();
     return transforms.createAnts(ants, () -> new Ant(grid, lifeCycle));
   }
 
   private LifeCycle createLifecycle() {
-    return LifeCycle.of(pattern.getText());
+    return transforms.createLifeCycle(pattern.getText());
   }
 
   private Timeline createTimeline() {
