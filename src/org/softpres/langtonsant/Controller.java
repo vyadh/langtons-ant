@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
   /** Default implementation of the transformations required to run the simulation. */
-  private final Transforms transforms = new DefaultTransforms();
+  private final Transforms transforms = new Transforms();
 
   @FXML
   private Group cells;

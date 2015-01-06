@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
  */
 public class TransformsTest {
 
-  private final Transforms transforms = new DefaultTransforms();
+  private final Transforms transforms = new Transforms();
 
   @Test
   public void createThreeAntsFromFactory() {
