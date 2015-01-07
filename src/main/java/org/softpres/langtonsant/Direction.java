@@ -11,43 +11,47 @@ import static java.util.stream.Collectors.toList;
 /**
  * The direction to move.
  */
-public class Direction {
+public enum Direction {
 
-  private static final List<Direction> dirs =
-        IntStream.rangeClosed(0, 3).mapToObj(Direction::new).collect(toList());
+  NORTH( 0, -1),
+  EAST ( 1,  0),
+  SOUTH( 0,  1),
+  WEST (-1,  0);
 
-  public static final Direction NORTH = dirs.get(3);
+  private static final int directions = values().length;
 
-  // East, South, West, North
-  private static final int[] xs = new int[] { 1, 0,-1, 0 };
-  private static final int[] ys = new int[] { 0, 1, 0,-1 };
-  private static final int directions = xs.length;
+  private static final List<Direction> cache =
+        IntStream.rangeClosed(0, 3)
+              .mapToObj(i -> Direction.values()[i])
+              .collect(toList());
 
-  private final int i;
+  private final int x;
+  private final int y;
 
-  private Direction(int i) {
-    this.i = i;
+  private Direction(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
 
   public Direction turnLeft() {
-    return dirs.get((i + dirs.size() - 1) % directions);
+    return cache.get((ordinal() + cache.size() - 1) % directions);
   }
 
   public Direction turnRight() {
-    return dirs.get((i + 1) % directions);
+    return cache.get((ordinal() + 1) % directions);
   }
 
   public int velX() {
-    return xs[i];
+    return x;
   }
 
   public int velY() {
-    return ys[i];
+    return y;
   }
 
   @Override
   public String toString() {
-    return xs[i] + "," + ys[i];
+    return x + "," + y;
   }
 
 }

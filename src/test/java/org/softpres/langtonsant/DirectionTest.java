@@ -29,7 +29,9 @@ public class DirectionTest {
     assertDirections(east, south, west, north);
   }
 
-  private void assertDirections(Direction east, Direction south, Direction west, Direction north) {
+  private void assertDirections(
+        Direction east, Direction south, Direction west, Direction north) {
+
     assertThat(east.velX()).isEqualTo(1);
     assertThat(east.velY()).isEqualTo(0);
     assertThat(south.velX()).isEqualTo(0);
