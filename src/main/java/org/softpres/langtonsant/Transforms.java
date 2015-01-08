@@ -28,6 +28,12 @@ public class Transforms {
    */
   public List<Ant> createAnts(int count, Supplier<Ant> factory) {
     return Stream.generate(factory).limit(count).collect(Collectors.toList());
+
+//    List<Ant> ants = new ArrayList<>(count);
+//    for (int i = 0; i < count; i++) {
+//      ants.add(factory.get());
+//    }
+//    return ants;
   }
 
   /**
@@ -39,6 +45,14 @@ public class Transforms {
     // it's not very nice, and the imperative for loop would probably have been nicer
     return IntStream.range(0, dimension).boxed().flatMap(
           x -> IntStream.range(0, dimension).mapToObj(y -> new Cell(x, y)));
+
+//    List<Cell> cells = new ArrayList<>(dimension * dimension);
+//    for (int x = 0; x < dimension; x++) {
+//      for (int y = 0; y < dimension; y++) {
+//        cells.add(new Cell(x, y));
+//      }
+//    }
+//    return cells.stream();
   }
 
   /**
@@ -60,6 +74,12 @@ public class Transforms {
           .map(this::turn)
           .collect(Collectors.toList())
     );
+
+//    List<Function<Direction, Direction>> result = new ArrayList<>();
+//    for (char c : tape.toCharArray()) {
+//      result.add(turn(c));
+//    }
+//    new LifeCycle(result);
   }
 
   private Function<Direction, Direction> turn(char c) {
@@ -77,6 +97,12 @@ public class Transforms {
    */
   public Stream<Cell> cells(Cell[][] grid) {
     return Stream.of(grid).flatMap(Arrays::stream);
+
+//    List<Cell> result = new ArrayList<>(grid.length * grid.length);
+//    for (Cell[] row : grid) {
+//      Collections.addAll(result, row);
+//    }
+//    return result.stream();
   }
 
 }
